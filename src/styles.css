@@ -1,0 +1,133 @@
+html{
+    font-size: 100%;
+}
+
+:root{
+    --sm: 0.8rem;
+    --md: 1rem;
+    --lg: 1.2rem;
+    --cultured: #eff3f6;
+    --dodger-blue: #005A9C;
+    --white: #ffffff;
+    --quick-silver: #aaaa9b;
+    --red-danger: #F44336;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: var(--cultured);
+  }
+
+.app{
+    display: grid;
+    place-items: center;
+}
+.cards__container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.math-cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.card{
+    width: 24rem;
+    box-shadow: 0px 1px 0.5rem 1px var(--quick-silver);
+}
+
+.card__math{
+    background-color: var(--white);
+}
+
+.card__title{
+    padding: 1rem;
+}
+
+.title{
+    margin: 0;
+    font-size: var(--lg);
+    font-weight: bold;
+}
+
+.card__figure{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.125rem solid var(--quick-silver);
+}
+
+.card__img{
+    width: 15rem;
+    height: 15rem;
+}
+
+.card__footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn{
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 0.25rem;
+    font-size: var(--md);
+    margin: 1rem 0;
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+.btn__primary{
+    color: white;
+    font-weight: bold;
+    background-color: var(--dodger-blue);
+}
+
+.btn__danger{
+    color: white;
+    font-weight: bold;
+    background-color: var(--red-danger);
+}
+
+.addition-config-container{
+    width: 80rem;
+    display: grid;
+    place-items: center;
+}
+
+.config__section{
+    width: 64rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.input-field{
+    display: flex;
+    flex-direction: column;
+}
+
+.input__label{
+    font-size: var(--sm);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.input{
+    background-color: var(--white);
+    border: none;
+    border-radius: 0.25rem;
+    height: 2rem;
+    font-size: var(--md);
+    padding: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+.input:focus{
+    outline: none;
+}
