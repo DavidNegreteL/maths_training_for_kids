@@ -25,8 +25,58 @@ Object.entries(operators).forEach(([key,value]) => {
     buildCard(value)
 })
 
+const createRandomDigit = (minimo,maximo) => {
+    return Math.floor(Math.random() * ((maximo+1)-minimo)+minimo);
+  }
+
+const createNumbers = (digits) => {
+    var digitsArray = [];
+    for(let i=1; i<=digits; i++){
+        const randomDigit = createRandomDigit(1,9);
+        digitsArray.push(randomDigit);
+        console.log(`Digito ${i} creado`)
+    }
+    console.log(digitsArray)
+    const joinedNumber = digitsArray.join("");
+    console.log(joinedNumber);
+    //digitsArray = [];
+    return joinedNumber
+}
+
+const createData = (digits, numberQuantity) => {
+    var numbersArray = [];
+    for(let i=1; i<=numberQuantity; i++){
+        const randomNumber = createNumbers(digits)
+        numbersArray.push(randomNumber);
+        console.log(`Número ${i} creado es ${randomNumber}`)
+    }
+    console.log(numbersArray);
+    //numbersArray = [];
+    return numbersArray
+}
+
+
+const getData = (numberDigits, numberQuantity, numberItems) => {
+    var itemsArray = [];
+    for(let i=1; i<=numberItems; i++){
+        const cardNumbers = createData(numberDigits, numberQuantity);
+        itemsArray.push(cardNumbers);
+        console.log(`Datos del Ejercicio ${i} obtenidos`);
+    }
+    console.log(itemsArray)
+    //itemsArray = [];
+    return itemsArray;
+}
+
+const buildChallengeCard = (cardData) => {
+    console.log("tarjeta creada con estos datos");
+    console.log(cardData);
+}
+
 const setChallengeCards = (typeOperator, numberDigits, numberQuantity, numberItems) => {
     if(typeOperator === 'addition'){
+        const cardData = getData(numberDigits, numberQuantity, numberItems)
+        buildChallengeCard(cardData);//probablemente la creación del DOM se quede aquí
         console.log('Tarjetas de suma creadas');
     }
     else{
@@ -39,9 +89,9 @@ const buildChallenge = (e) => {
     const numberDigits = document.getElementById("number_digits").value;
     const numberQuantity = document.getElementById("number_quantity").value;
     const numberItems = document.getElementById("number_items").value;
-    console.log(`Reto creado ${typeOperator}`)
     console.log(`${numberDigits} | ${numberQuantity} | ${numberItems}`);
     setChallengeCards(typeOperator, numberDigits, numberQuantity, numberItems);
+    console.log(`Reto creado ${typeOperator}`)
 }
 
 const deleteChallenge = (e) => {
