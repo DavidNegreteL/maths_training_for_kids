@@ -6,11 +6,13 @@ html{
     --sm: 0.8rem;
     --md: 1rem;
     --lg: 1.2rem;
+    --xl: 2rem;
     --cultured: #eff3f6;
     --dodger-blue: #005A9C;
     --white: #ffffff;
     --quick-silver: #aaaa9b;
     --red-danger: #F44336;
+    --platinum: #e4e4e4;
 }
 
 body {
@@ -44,6 +46,37 @@ body {
     background-color: var(--white);
 }
 
+.math__exercises{
+    width: 100%;
+}
+
+.exercises__container{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 2rem;
+}
+
+.exercises__grid{
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 0.3rem;
+    margin: 0.25rem;
+    height: 2.5rem;
+}
+
+.digit__cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--xl);
+}
+
+.symbol{
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 5;
+}
+
 .card__title{
     padding: 1rem;
 }
@@ -69,6 +102,16 @@ body {
 .card__footer{
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.footer__exercise{
+    border-top: 0.125rem solid var(--dodger-blue);
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
     align-items: center;
 }
 
@@ -119,6 +162,7 @@ body {
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
+
 .input{
     background-color: var(--white);
     border: none;
@@ -128,6 +172,46 @@ body {
     padding: 0.4rem;
     margin-bottom: 0.8rem;
 }
+
 .input:focus{
     outline: none;
+}
+
+.input-result{
+    text-align: center;
+    font-size: var(--xl);
+    width: 75%;
+}
+
+@media(max-width: 80rem){
+    .cards__container{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media(max-width: 40rem){
+    .cards__container{
+        grid-template-columns: 1fr;
+    }
+}
+
+.chip__evaluate{
+    display: inline-block;
+    height: 2rem;
+    font-size: var(--sm);
+    font-weight: bold;
+    color: rgba(0,0,0,0.6);
+    line-height: 2rem;
+    padding: 0 0.8rem;
+    border-radius: 1rem;
+    background-color: var(--platinum);
+    margin-bottom: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.chip__img{
+    float: left;
+    margin: 0 0.5rem 0 -0.8rem;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
 }
