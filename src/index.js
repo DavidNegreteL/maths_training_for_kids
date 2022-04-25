@@ -68,11 +68,8 @@ const getData = (numberDigits, numberQuantity, numberItems) => {
     return itemsArray;
 }
 
-const buildChallengeCard = (symbol, cardData) => {
-    const appContainer = document.getElementById("cards_container")
-    var exItem = 1;
-    cardData.forEach(exercise => {
-        appContainer.innerHTML += `
+const addCardTemplate = (appContainer, exItem) => {
+    appContainer.innerHTML += `
             <div class="math-cards">
                 <div class="card card__exercise">
                     <p class="card__title" id="exercise_item">Ejercicio ${exItem}</p>
@@ -96,25 +93,44 @@ const buildChallengeCard = (symbol, cardData) => {
                 </div>
             </div>
         `;
-        const exerciseGrid = document.getElementById(`exercise_grid${exItem}`);
-        exerciseGrid.innerHTML += `
+}
+
+const addSymbolToCard = (exerciseGrid, exItem, symbol) => {
+    exerciseGrid.innerHTML += `
             <div class="digit__cell symbol" id="symbol_ex_${exItem}">${symbol}</div>
         `;
-        var digitsLength = 0;
-        var numbersLength = exercise.length
-        exercise.forEach(number => {
-            const numberDigits = number.split("");
-            digitsLength = numberDigits.length;
-            numberDigits.forEach(digit => {
-                exerciseGrid.innerHTML += `
-                    <div class="digit__cell">${digit}</div>
-                `;
-            })
+}
+
+const addDigitsToCard = (exercise, exerciseGrid) => {
+    var digitsLength;
+    exercise.forEach(number => {
+        const numberDigits = number.split("");
+        digitsLength = numberDigits.length;
+        numberDigits.forEach(digit => {
+            exerciseGrid.innerHTML += `
+                <div class="digit__cell">${digit}</div>
+            `;
         })
+    })
+    return digitsLength
+}
+
+const modifyGridSystem = (exerciseGrid,symbolElement,gridCol,numbersLength) => {
+    exerciseGrid.style.gridTemplateColumns = `repeat(${gridCol+1}, 1fr)`;
+    symbolElement.style.gridRowEnd = numbersLength+1;
+}
+
+const buildChallengeCard = (symbol, cardData) => {
+    const appContainer = document.getElementById("cards_container")
+    var exItem = 1;
+    cardData.forEach(exercise => {
+        addCardTemplate(appContainer, exItem);
+        const exerciseGrid = document.getElementById(`exercise_grid${exItem}`);
+        addSymbolToCard(exerciseGrid, exItem, symbol);
+        var numbersLength = exercise.length
+        const gridCol = addDigitsToCard(exercise, exerciseGrid);
         const symbolElement = document.getElementById(`symbol_ex_${exItem}`);
-        console.log(`${numbersLength} Número de ${digitsLength} Digitos`);
-        exerciseGrid.style.gridTemplateColumns = `repeat(${digitsLength+1}, 1fr)`;
-        symbolElement.style.gridRowEnd = numbersLength+1;
+        modifyGridSystem(exerciseGrid,symbolElement,gridCol,numbersLength);
         exItem++
     })
     console.log("tarjeta creada con estos datos");
