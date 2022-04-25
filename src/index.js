@@ -4,7 +4,7 @@ const buildCard = (operator) => {
     const cardsContainer = document.getElementById("cards_container")
     cardsContainer.innerHTML+=`
         <div class="math-cards">
-            <div class="card card__math">
+            <div class="card card__operator">
                 <div class="card__title">
                     <p class="title">${operator.name}</p>
                 </div>
@@ -68,7 +68,55 @@ const getData = (numberDigits, numberQuantity, numberItems) => {
     return itemsArray;
 }
 
-const buildChallengeCard = (cardData) => {
+const buildChallengeCard = (symbol, cardData) => {
+    const appContainer = document.getElementById("cards_container")
+    var exItem = 1;
+    cardData.forEach(exercise => {
+        appContainer.innerHTML += `
+            <div class="math-cards">
+                <div class="card card__exercise">
+                    <p class="card__title" id="exercise_item">Ejercicio ${exItem}</p>
+                    <div class="exercises__container">
+                        <div class="exercises__grid" id="exercise_grid${exItem}">
+                            
+                        </div>
+                    </div>
+                    <div class="footer__exercise">
+                        <input type="number" placeholder="Resultado" class="input input-result">
+                        <button class="btn btn__primary" id="evaluate_btn" name="X">
+                            Calificar
+                        </button>
+                        <div class="evaluation__container">
+                            <div class="chip__evaluate">
+                                <img src="./src/assets/correct_answer.png" alt="" class="chip__img">
+                                <span>¡Correcto!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        const exerciseGrid = document.getElementById(`exercise_grid${exItem}`);
+        exerciseGrid.innerHTML += `
+            <div class="digit__cell symbol" id="symbol_ex_${exItem}">${symbol}</div>
+        `;
+        var digitsLength = 0;
+        var numbersLength = exercise.length
+        exercise.forEach(number => {
+            const numberDigits = number.split("");
+            digitsLength = numberDigits.length;
+            numberDigits.forEach(digit => {
+                exerciseGrid.innerHTML += `
+                    <div class="digit__cell">${digit}</div>
+                `;
+            })
+        })
+        const symbolElement = document.getElementById(`symbol_ex_${exItem}`);
+        console.log(`${numbersLength} Número de ${digitsLength} Digitos`);
+        exerciseGrid.style.gridTemplateColumns = `repeat(${digitsLength+1}, 1fr)`;
+        symbolElement.style.gridRowEnd = numbersLength+1;
+        exItem++
+    })
     console.log("tarjeta creada con estos datos");
     console.log(cardData);
 }
@@ -76,7 +124,8 @@ const buildChallengeCard = (cardData) => {
 const setChallengeCards = (typeOperator, numberDigits, numberQuantity, numberItems) => {
     if(typeOperator === 'addition'){
         const cardData = getData(numberDigits, numberQuantity, numberItems)
-        buildChallengeCard(cardData);//probablemente la creación del DOM se quede aquí
+        const operatorSymbol = '+';
+        buildChallengeCard(operatorSymbol,cardData);//probablemente la creación del DOM se quede aquí
         console.log('Tarjetas de suma creadas');
     }
     else{
@@ -132,6 +181,8 @@ const loadAdditionDom = (operatorType) => {
                     <button class="btn btn__danger" id="delete_challenge_btn" name="${operatorType}">Limpiar</button>
                 </div>
             </div>
+        </section>
+        <section class="cards__container" id="cards_container">
         </section>
     `;
     addListener('build_challenge_btn', 'click', buildChallenge)
